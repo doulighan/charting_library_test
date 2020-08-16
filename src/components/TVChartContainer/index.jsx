@@ -11,8 +11,6 @@ export class TVChartContainer extends React.Component {
     timeframe: '1m',
     containerId: 'tv_chart_container',
     libraryPath: '/charting_library/',
-    clientId: 'tradingview.com',
-    userId: 'public_user_id',
     fullscreen: false,
     autosize: true,
     studiesOverrides: {},
@@ -57,19 +55,24 @@ export class TVChartContainer extends React.Component {
   componentDidUpdate() {
     console.log(this.state.selectedDate);
     if (this.state.selectedDate) {
-      this.tvWidget.chart().dataReady(() => {
-        const date = moment(this.state.selectedDate, 'YYYY-MM-DD');
-        const fromUnix = date.format('X');
-        const toUnix = date.add(2, 'd').format('X');
-        console.log(fromUnix, toUnix);
-        console.log(`call to setVisibleRange(${fromUnix}, ${toUnix})`);
-        this.tvWidget.chart().setVisibleRange({
-          from: fromUnix,
-          to: toUnix
-        }).then(() => {
-          console.log('setVisibleRange() promise resolved');
-        });
-      });
+      this.tvWidget.onChartReady(() => {
+        this.tvWidget.chart().dataReady(() => {
+
+          const date = moment(this.state.selectedDate, 'YYYY-MM-DD');
+          const fromUnix = date.format('X');
+          const toUnix = date.add(2, 'd').format('X');
+
+          console.log(fromUnix, toUnix);
+          console.log(`call to setVisibleRange(${fromUnix}, ${toUnix})`);
+
+          this.tvWidget.chart().setVisibleRange({
+            from: fromUnix,
+            to: toUnix
+          }).then(() => {
+            console.log('setVisibleRange() promise resolved');
+          });
+        })
+      })
     }
   }
 
