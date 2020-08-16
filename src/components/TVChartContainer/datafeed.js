@@ -96,7 +96,7 @@ export default {
       onErrorCallback(err);
       return;
     }
-    onHistoryCallback([], { noData: true });
+    onHistoryCallback([]);
   },
 
   calculateHistoryDepth: function(resolution, resolutionBack, intervalBack) {
