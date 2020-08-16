@@ -1,0 +1,16 @@
+{
+  "name": "charting-library-react-js-example",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.2",
+    "lodash": "^4.17.20",
+    "moment": "^2.27.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  }
+}
