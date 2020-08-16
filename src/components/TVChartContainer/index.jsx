@@ -4,8 +4,8 @@ import './index.css';
 import { widget } from '../../charting_library/charting_library.min';
 import dataFeed from './datafeed';
 
-export class TVChartContainer extends React.Component {
-  static defaultProps = {
+export class TVChartContainer extends React.PureComponent {
+  static defaultPropsOld = {
     symbol: 'AAPL',
     interval: '60',
     timeframe: '1m',
@@ -14,33 +14,27 @@ export class TVChartContainer extends React.Component {
     fullscreen: false,
     autosize: true,
     studiesOverrides: {},
-  };
+	};
+	
+	static defaultProps = {
+		symbol: 'AAPL',
+		interval: 'D',
+		containerId: 'tv_chart_container',
+		datafeedUrl: 'https://demo_feed.tradingview.com',
+		libraryPath: '/charting_library/',
+		chartsStorageUrl: 'https://saveload.tradingview.com',
+		chartsStorageApiVersion: '1.1',
+		clientId: 'tradingview.com',
+		userId: 'public_user_id',
+		fullscreen: false,
+		autosize: true,
+		studiesOverrides: {},
+	};
 
   state = {
     selectedDate: null
   }
 
-<<<<<<< HEAD
-  tvWidget = null;
-  buttonDates = ['2020-07-23', '2020-02-12', '2020-01-08', '2019-04-24', '2018-10-30', '2016-02-02', '2014-04-14'];
-
-  componentDidMount() {
-    const widgetOptions = {
-      // interval: this.props.interval,
-      // timeframe: this.props.timeframe,
-      symbol: this.props.symbol,
-      datafeed: dataFeed,
-      container_id: this.props.containerId,
-      library_path: this.props.libraryPath,
-      locale: 'en',
-      disabled_features: ['header_symbol_search', 'go_to_date', 'header_saveload', 'symbol_search_hot_key', 'compare_symbol', 'header_compare'],
-      enabled_features: ['side_toolbar_in_fullscreen_mode', 'header_in_fullscreen_mode'],
-      fullscreen: this.props.fullscreen,
-      autosize: this.props.autosize,
-      theme: 'Dark',
-      debug: true
-    };
-=======
 	tvWidget = null;
 	buttonDates = ['2020-07-25', '2020-05-04', '2020-02-12', '2020-01-08', '2019-04-24', '2018-10-30'];
 
@@ -48,7 +42,8 @@ export class TVChartContainer extends React.Component {
 		const widgetOptions = {
 			symbol: this.props.symbol,
 			datafeed: dataFeed,
-			interval: this.props.interval,
+      // interval: this.props.interval,
+      // timeframe: this.props.timeframe,
 			container_id: this.props.containerId,
 			library_path: this.props.libraryPath,
 			locale: 'en',
@@ -58,31 +53,10 @@ export class TVChartContainer extends React.Component {
 			autosize: this.props.autosize,
 			debug: true
 		};
->>>>>>> parent of ab38c0e... changed console logs
 
     const tvWidget = new widget(widgetOptions);
     this.tvWidget = tvWidget;
 
-<<<<<<< HEAD
-    tvWidget.onChartReady(() => {
-      tvWidget.headerReady().then(() => { });
-      tvWidget.chart().onVisibleRangeChanged().subscribe(
-        null,
-        (el) => { console.log('visible range subscriber:', el) }
-      );
-    });
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.selectedDate);
-    if (this.state.selectedDate) {
-      this.tvWidget.onChartReady(() => {
-        this.tvWidget.chart().dataReady(() => {
-
-          const date = moment(this.state.selectedDate, 'YYYY-MM-DD');
-          const fromUnix = date.format('X');
-          const toUnix = date.add(2, 'd').format('X');
-=======
 		tvWidget.onChartReady(() => {
 			tvWidget.headerReady().then(() => {});
 			tvWidget.chart().onVisibleRangeChanged().subscribe(
@@ -98,7 +72,7 @@ export class TVChartContainer extends React.Component {
 			const date = moment(this.state.selectedDate, 'YYYY-MM-DD');
 			const fromUnix = date.format('X');
 			const toUnix = date.add(3, 'd').format('X');
-			console.log('setting');
+			console.log(`calling setVisibleTimeRange(${fromUnix}, ${toUnix})`);
 			this.tvWidget.chart().setVisibleRange({
 				from: fromUnix,
 				to: toUnix
@@ -108,22 +82,6 @@ export class TVChartContainer extends React.Component {
 		}
 	}
 	
->>>>>>> parent of ab38c0e... changed console logs
-
-          console.log(fromUnix, toUnix);
-          console.log(`call to setVisibleRange(${fromUnix}, ${toUnix})`);
-
-<<<<<<< HEAD
-          this.tvWidget.chart().setVisibleRange({
-            from: fromUnix,
-            to: toUnix
-          }).then(() => {
-            console.log('setVisibleRange() promise resolved');
-          });
-        })
-      })
-    }
-  }
 
 
   componentWillUnmount() {
@@ -153,7 +111,7 @@ export class TVChartContainer extends React.Component {
       </div>
     );
   }
-=======
+
 	handleClick = (e) => {
 		this.setState({selectedDate: e.target.value});
   }
@@ -174,5 +132,4 @@ export class TVChartContainer extends React.Component {
 			</div>
 		);
 	}
->>>>>>> parent of ab38c0e... changed console logs
 }
