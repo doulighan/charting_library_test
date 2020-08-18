@@ -12,5 +12,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "env": {
+        "browser": true,
+        "node": true,
+        "amd": true
+    }
   }
 }
