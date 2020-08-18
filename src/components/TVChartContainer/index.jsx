@@ -5,27 +5,14 @@ import { widget } from '../../charting_library/charting_library.min';
 import dataFeed from './datafeed';
 
 export class TVChartContainer extends React.PureComponent {
-  static defaultPropsOld = {
-    symbol: 'AAPL',
-    interval: '60',
-    timeframe: '1m',
-    containerId: 'tv_chart_container',
-    libraryPath: '/charting_library/',
-    fullscreen: false,
-    autosize: true,
-    studiesOverrides: {},
-	};
 	
 	static defaultProps = {
 		symbol: 'AAPL',
 		interval: 'D',
+		timeframe: '3m',
 		containerId: 'tv_chart_container',
-		datafeedUrl: 'https://demo_feed.tradingview.com',
 		libraryPath: '/charting_library/',
-		chartsStorageUrl: 'https://saveload.tradingview.com',
 		chartsStorageApiVersion: '1.1',
-		clientId: 'tradingview.com',
-		userId: 'public_user_id',
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
@@ -51,6 +38,7 @@ export class TVChartContainer extends React.PureComponent {
 			enabled_features: ['side_toolbar_in_fullscreen_mode', 'header_in_fullscreen_mode'],
 			fullscreen: this.props.fullscreen,
 			autosize: this.props.autosize,
+			theme: 'Dark',
 			debug: true
 		};
 
